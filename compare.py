@@ -14,10 +14,10 @@ def main():
     if not compare_folder(folder1,folder2):
         print("フォルダ構成が違います")
         return
-    #ソートしたファイル格納用
+    # ソートしたファイル格納用
     if not os.path.exists('sorted'):
         os.makedirs('sorted')
-    #ソートファイルを作成
+    # ソートファイルを作成
     compare_and_sort_files(folder1,folder2,True) 
     sorted_path1 = os.path.join('sorted',folder1)
     sorted_path2 = os.path.join('sorted',folder2)
@@ -44,6 +44,7 @@ def compare_folder(folder1,folder2):
     
     return False
 #compare_folder("a","b")
+
 
 # フォルダの中のファイルを比較
 # 引数：実行する直下にあるフォルダ１、フォルダ２,新しくファイルを作るかどうかフラグ
