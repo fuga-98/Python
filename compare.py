@@ -5,6 +5,9 @@ import hashlib
 import shutil
 import difflib
 def main():
+    if len(sys.argv) == 1:
+        print("比較したいフォルダのパスを二つ引数にいれてください")
+        return
     # 引数の一つ目はスクリプト名
     if len(sys.argv) != 3:
         print("引数の数が二つではありません")
@@ -12,7 +15,7 @@ def main():
     _,folder1,folder2 =sys.argv
     # フォルダ構成を確認
     if not compare_folder(folder1,folder2):
-        print("フォルダ構成が違います")
+        print("フォルダの中の構成が違います")
         return
     # ソートしたファイル格納用
     if not os.path.exists('sorted'):
