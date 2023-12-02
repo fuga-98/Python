@@ -4,7 +4,7 @@ from langchain.schema import (SystemMessage, HumanMessage, AIMessage)
 
 
 def main():
-    llm = ChatOpenAI(temperature=0)
+    llm = ChatOpenAI(temperature=0.9)
     # タブのタイトルなどを決める
     st.set_page_config(
         page_title="My Great ChatGPT",
@@ -15,10 +15,10 @@ def main():
     # チャット履歴の初期化
     if "messages" not in st.session_state:
         st.session_state.messages = [
-            SystemMessage(content="You are a helpful assistant.")
+            SystemMessage(content="I am a helpful assistant.")
         ]
 
-    # ユーザーの入力を監視
+    #  ユーザーの入力を監視
     # if user_input := st.chat_input("聞きたいことを入力してね！"):
     #     st.session_state.messages.append(HumanMessage(content=user_input))
     #     with st.spinner("ChatGPT is typing ..."):
@@ -34,6 +34,7 @@ def main():
     if submit_button and user_input:
         # 何か入力されて Submit ボタンが押されたら実行される
         st.session_state.messages.append(HumanMessage(content=user_input))
+        # Streamlitのスピナー機能を利用し、ユーザーに対して処理中であることを伝える
         with st.spinner("ChatGPT is typing ..."):
             response = llm(st.session_state.messages)
         st.session_state.messages.append(AIMessage(content=response.content))

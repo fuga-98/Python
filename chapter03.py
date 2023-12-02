@@ -6,10 +6,11 @@ from langchain.schema import (
 )
 
 llm = ChatOpenAI()  # ChatGPT APIを呼んでくれる機能
-message = "Hi, ChatGPT! どうしておならはくさいの？"  # あなたの質問をここに書く
+message = "Hi, ChatGPT! あなたはコロ助ですか？"  # あなたの質問をここに書く
 
 messages = [
-    SystemMessage(content="You are a helpful assistant."),
+    # 設定を決める指示
+    SystemMessage(content="語尾に「ナリ」をつけてください"),
     HumanMessage(content=message)
 ]
 response = llm(messages)
