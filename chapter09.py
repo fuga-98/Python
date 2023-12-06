@@ -5,7 +5,7 @@ from PyPDF2 import PdfReader
 from langchain.embeddings.openai import OpenAIEmbeddings
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Qdrant
-
+# QdrantClientのimportは　pip install qdrant-client　で行う
 from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, VectorParams
 
@@ -52,7 +52,6 @@ def load_qdrant():
 
     # コレクションが存在しなければ作成
     if COLLECTION_NAME not in collection_names:
-        # コレクションが存在しない場合、新しく作成します
         client.create_collection(
             collection_name=COLLECTION_NAME,
             vectors_config=VectorParams(size=1536, distance=Distance.COSINE),
