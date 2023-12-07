@@ -4,6 +4,7 @@ import glob
 import hashlib
 import shutil
 import difflib
+
 def main():
     if len(sys.argv) == 1:
         print("比較したいフォルダのパスを二つ引数にいれてください")
@@ -30,7 +31,6 @@ def main():
     print(f"差分ありファイル:{differ}")
     # htmlで差分を出力
     make_diff_files(sorted_path1,sorted_path2)
-
     
 # フォルダの内部を比較
 # 引数：実行する直下にあるフォルダ１、フォルダ２
@@ -46,8 +46,6 @@ def compare_folder(folder1,folder2):
     diff = files_set1^files_set2
     
     return False
-#compare_folder("a","b")
-
 
 # フォルダの中のファイルを比較
 # 引数：実行する直下にあるフォルダ１、フォルダ２,新しくファイルを作るかどうかフラグ
@@ -74,7 +72,7 @@ def compare_and_sort_files(folder1,folder2,make_file_flag=True):
                 make_sorted_contents(file)
                 make_sorted_contents(files2[index])
     return match_files,diff_files
- # compare_and_sort_files("a","b")  
+
 # ファイルの差分をHTML方式で出力する。
 # 引数：フォルダ　ファイル中はソートされていることを期待
 # 戻り値：なし、ファイルを作成
@@ -94,7 +92,6 @@ def _get_files_list(folder):
     path = os.path.join(".", folder,"*")
     files=glob.glob(path)
     return files
-
 
 def _get_filenames_set(file_list):
     file_set =set()
@@ -117,7 +114,7 @@ def _calc_sha256_files(file_path):
       for chunk in iter(lambda: f.read(4096),b''):
           sha256.update(chunk)
     return sha256.hexdigest()
-#_calc_sha256_files(".\\a\\apple.txt")
+
 
 # ２つのファイルのハッシュ値が等しいか計算
 def _check_hash_match(file_path1,file_path2):
@@ -142,22 +139,12 @@ def make_sorted_contents(file_path):
     with open(new_file_path, 'w') as f:
         f.writelines(sorted_contents)
 
-
-# path = '.\\a\\apple.txt'
-# make_sorted_contents(path)
-
 # ファイルをこぴーしてsortedフォルダに格納
 def _copy_file(file_path):
     new_file_path = os.path.join(".", "sorted", file_path[2:])
     directory = os.path.dirname(new_file_path)
-    # if not os.path.exists(directory):
-    #     os.makedirs(directory)
-    shutil.copy2(file_path, directory)
+    shutil.copy2(file_path, directory)   
 
-
-# path2='.\\a\\bean.txt'
-# _copy_file(path2)
-    
 # 差分のhtmlファイルを作成する。引数はファイルのパス
 def _make_diff_html(file_path1,file_path2):
     with open(file_path1,'r') as f1, open(file_path2,'r') as f2:
